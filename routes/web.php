@@ -36,7 +36,7 @@ Route::resource('learning', LearningController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('forum', ForumController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'create'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('quiz', QuizController::class)

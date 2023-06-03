@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forums', function (Blueprint $table) {
+        Schema::create('channels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->string('tittle');
-            $table->text('content');
+            $table->string('name');
             $table->string('slug')->unique();
-            $table->integer('channel_id');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forums');
+        Schema::dropIfExists('channels');
     }
 };
