@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Forum;
+use App\Models\Forum\Forum;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateDiscussionrequest;
 
 class ForumController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store']);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -21,16 +28,33 @@ class ForumController extends Controller
      */
     public function create()
     {
-        //
+        return view('forum.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateDiscussionRequest $request)
     {
-        //
+        // Create a new instance of the Forum model
+        $forum = new Forum();
+    
+        // Assign values from the request to the model attributes
+        $forum->title = $request->input('title');
+        $forum->content = $request->input('content');
+        $forum->channel_id = $request->input('channel');
+        $forum->slug = $request->input('title');
+    
+        // Save the model to the database
+        $forum->save();
+    
+        // Flash a success message to the session
+        session()->flash('success', 'Discussion posted');
+    
+        // Redirect to the forum.index route
+        return redirect()->route('forum.index');
     }
+    
 
     /**
      * Display the specified resource.
