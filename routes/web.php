@@ -40,8 +40,29 @@ Route::resource('forum', ForumController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('quiz', QuizController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'create', 'show'])
     ->middleware(['auth', 'verified']);
 
+
+// Route::get('quiz/create', [QuizController::class, 'create'])
+//     ->name('quiz.create')
+//     ->middleware(['auth', 'verified']);
+
+
+Route::get('/quiz/{quiz}/question/create', [QuizController::class, 'createQuestion'])
+    ->name('quiz.question.create')
+    ->middleware(['auth', 'verified']);
+
+Route::post('/quiz/{quiz}/question', [QuizController::class, 'storeQuestion'])
+    ->name('quiz.question.store')
+    ->middleware(['auth', 'verified']); 
+
+Route::get('/quiz/{quiz}/question', [QuizController::class, 'showQuestion'])
+    ->name('quiz.question.show')
+    ->middleware(['auth', 'verified']);
+
+Route::post('/quiz/{quiz}/question/submit', [QuizController::class, 'submitQuestion'])
+    ->name('quiz.question.submit')
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';

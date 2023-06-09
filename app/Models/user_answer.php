@@ -5,19 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quiz extends Model
+class user_answer extends Model
 {
     use HasFactory;
+
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
-        'title',
-        'description',
         'user_id',
+        'question_id',
+        'option_id',
     ];
 
     public function user()
@@ -25,8 +27,13 @@ class Quiz extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function questions()
+    public function question()
     {
-        return $this->hasMany(Question::class);
+        return $this->belongsTo(Question::class);
+    }
+
+    public function option()
+    {
+        return $this->belongsTo(Option::class);
     }
 }
