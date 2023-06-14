@@ -4,13 +4,26 @@
     <main class="container py-4">
         <div class="row">
             <div class="col-md-4">
-                <ul class="list-group">
-                    @foreach ($channels as $channel)
-                        <li class="list-group-item">
-                            {{ $channel -> name }}
-                        </li>
-                    @endforeach
-                 </ul>
+                @php
+                    $selectedChannel = $forum->channel_id ?? null;
+                @endphp
+
+                <a href="{{ route('forum.create') }}" style="width: 100%; color:#fff" class = "btn btn-info my-2">Add Discussion</a>
+                <div class="card">
+                    <div class="card-header">
+                        Channels
+                    </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="{{ route('forum.index') }}" class="{{ !$selectedChannel ? 'active' : '' }}">All Channels</a>
+                            </li>
+                            @foreach ($channels as $channel)
+                                <li class="list-group-item">
+                                    <a href="{{ route('forum.index', ['channel' => $channel->id]) }}" class="{{ $selectedChannel == $channel->id ? 'active' : '' }}">{{ $channel->id }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="flex justify-content-end mb-2">

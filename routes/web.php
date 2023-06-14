@@ -40,6 +40,8 @@ Route::resource('forum', ForumController::class)
     ->only(['index', 'store', 'create', 'show'])
     ->middleware(['auth', 'verified']);
 
+Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+
 Route::resource('quiz', QuizController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);

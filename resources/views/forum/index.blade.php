@@ -1,50 +1,56 @@
 <x-app-layout>
-
     @auth
-    <main class="container py-4">
-        <div class="row">
-            <div class="col-md-4">
-                <a href="{{ route('forum.create') }}" style="width: 100%; color:#fff" class = "btn btn-info my-2">Add Discussion</a>
-                <div class="card">
-                    <div class="card-header">
-                        Channels
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            @foreach ($channels as $channel)
+        <main class="container py-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="{{ route('forum.create') }}" style="width: 100%; color:#fff" class = "btn btn-info my-2">Add Discussion</a>
+                    <div class="card">
+                        <div class="card-header">
+                            Channels
+                        </div>
+                            <ul class="list-group">
                                 <li class="list-group-item">
-                                    {{ $channel -> name }}
+                                    <a href="{{ route('forum.index') }}" class="{{ !$selectedChannel ? 'active' : '' }}">All Channels</a>
                                 </li>
-                            @endforeach
-                         </ul>
+                                @foreach ($channels as $channel)
+                                    <li class="list-group-item">
+                                        <a href="{{ route('forum.index', ['channel' => $channel->id]) }}" class="{{ $selectedChannel == $channel->id ? 'active' : '' }}">{{ $channel->id }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-                @foreach ($forums as $forum )
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <strong class="ml-2">{{ $forum->author->name}}</strong>
+
+                <div class="col-md-8">
+                    @forelse ($forums as $forum)
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <strong class="ml-2">{{ $forum->author->name}}</strong>
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('forum.show', $forum->slug) }}" class="btn btn-success btn-sm">View</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <a href="{{ route('forum.show', $forum->slug) }}" class="btn btn-success btn-sm">View</a>
+                            <div class="card-body">
+                                {{$forum->title }}
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        {{$forum->title }}
-                    </div>
+                    @empty
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                No forums found.
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
-                @endforeach
             </div>
-        </div>
-    </main>
-
+        </main>
     @else
         <div class="py-4">
-             @yield('content')
+            @yield('content')
         </div>
     @endauth
 

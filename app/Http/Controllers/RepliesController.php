@@ -28,7 +28,7 @@ class RepliesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Forum $forum)
+    public function store(CreateReplyRequest $request, Forum $forum)
     {
         // Get the authenticated user's ID
         $user_id = auth()->user()->id;

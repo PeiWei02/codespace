@@ -6,7 +6,7 @@ use App\Models\Forum\Forum;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateDiscussionrequest;
+use App\Models\Forum\Channel;
 
 class ForumController extends Controller
 {
@@ -18,12 +18,27 @@ class ForumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
+        $channel = $request->query('channel');
+
+        $query = Forum::query();
+       
+        if ($channel) {
+            $query->where('channel_id', $channel);
+        }
+
+        $forums = $query->paginate(5)->appends($request->query());
+        $channels = Channel::all();
+
         return view('forum.index', [
-            'forums' => Forum::paginate(5)
+            'forums' => $forums,
+            'selectedChannel' => $channel,
+            'channels' => $channels
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
