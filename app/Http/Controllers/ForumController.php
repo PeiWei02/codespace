@@ -20,7 +20,9 @@ class ForumController extends Controller
      */
     public function index(): View
     {
-        return view('forum.index');
+        return view('forum.index', [
+            'forums' => Forum::paginate(5)
+        ]);
     }
 
     /**
@@ -34,34 +36,42 @@ class ForumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateDiscussionRequest $request)
+    public function store(Request $request)
     {
+        // Get the authenticated user's ID
+        $user_id = auth()->user()->id;
+
         // Create a new instance of the Forum model
         $forum = new Forum();
-    
+
         // Assign values from the request to the model attributes
         $forum->title = $request->input('title');
         $forum->content = $request->input('content');
         $forum->channel_id = $request->input('channel');
         $forum->slug = $request->input('title');
-    
+        $forum->user_id = $user_id;
+
         // Save the model to the database
         $forum->save();
-    
+
         // Flash a success message to the session
         session()->flash('success', 'Discussion posted');
-    
+
         // Redirect to the forum.index route
         return redirect()->route('forum.index');
     }
-    
+
+
+
 
     /**
      * Display the specified resource.
      */
     public function show(Forum $forum)
     {
-        //
+        return view('forum.show', [
+            'forum' => $forum
+        ]);
     }
 
     /**
@@ -86,5 +96,14 @@ class ForumController extends Controller
     public function destroy(Forum $forum)
     {
         //
+    }
+
+    public function rules()
+    {
+        return [
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'channel' => 'required|integer',
+        ];
     }
 }

@@ -21,8 +21,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                @foreach ($forums as $forum )
-                <div class="card mt-3">
+                <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -34,11 +33,50 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        {{$forum->title }}
+                        <strong>
+                            {{$forum->title }} 
+                        </strong>
+                        <p class="my-2">
+                            {{$forum->content }}
+                        </p>
+                    </div>
+                </div>
+
+                @foreach ($forum->replies()->paginate(3) as $reply)
+                <div class="card my-1">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <span>{{ $reply->owner->name }}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {!! $reply->content!!}
                     </div>
                 </div>
                 @endforeach
+                {{ $forum->replies()->paginate(3)->links() }}
+
+                <div class="div">
+                    <div class="card">
+                        <div class="card-header">
+                            Add a reply 
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('replies.store', $forum->slug )}}" method='POST'>
+                                @csrf
+                                <div class="form-group">
+                                    {{-- <label for="reply">Reply</label> --}}
+                                    <input type="text" class="form-control" name='content' id="content" value="">
+                                    <button type="submit" class="btn btn-success btn-sm mt-2 py-2">
+                                        Add reply
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </main>
 
