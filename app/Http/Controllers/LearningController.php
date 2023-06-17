@@ -15,15 +15,16 @@ class LearningController extends Controller
     public function index():View
     {
         // return response('Hellow');
-        return view('learning.index');
+        return view('learning.index')
+        ->with('posts', Learning::orderBy('updated_at','desc')->get());
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
+    { 
+        return view('learning.create');
     }
 
     /**
@@ -31,7 +32,26 @@ class LearningController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+        ]);
+
+        $newImageName = uniqid() . '-' . $request->title . '.' .
+        $request->image->extension();
+
+        $request->image->move(public_path('images'), $newImageName);
+
+        Learning::create([
+            'title'=> $request->input('title'),
+            'description'=> $request->input('description'),
+            'image_path'=> $newImageName,
+            'user_id'=> auth()->user()->id
+        ]);
+
+        return redirect('/learning')
+            ->with('message','Your Post has been added!');
     }
 
     /**

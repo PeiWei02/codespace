@@ -43,5 +43,8 @@ Route::resource('quiz', QuizController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 
+Route::get('/learning/create', [LearningController::class, 'create'])->name('learning.create');
+
+
 
 require __DIR__ . '/auth.php';
