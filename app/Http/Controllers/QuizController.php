@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use App\Models\Question;
 use App\Models\Option;
 use App\Models\user_answer;
+use Illuminate\Support\Facades\Log;
 
 class QuizController extends Controller
 {
@@ -119,16 +120,54 @@ class QuizController extends Controller
         return redirect()->route('quiz.index');
     }
 
-    public function submitAnswers(Request $request, Quiz $quiz){
+    // public function submitAnswers(Request $request, Quiz $quiz){
 
-        // loop through the submitted answers and store them
-        foreach($request->answers as $question_id => $answer_id) {
-            $answer = new user_answer;
-            $answer = auth()->user()->id;
-            $answer->question_id = $question_id;
-            $answer->option_id = $answer_id;
-            $answer->save();
+    //     // loop through the submitted answers and store them
+    //     foreach($request->answers as $question_id => $answer_id) {
+    //         $answer = new user_answer;
+    //         $answer = auth()->user()->id;
+    //         $answer->question_id = $question_id;
+    //         $answer->option_id = $answer_id;
+    //         $answer->save();
+    //     }
+    //     return redirect()->route('quizzes.results', ['quiz' => $quiz]);
+    // }
+
+    public function answer(Quiz $quiz)
+    {
+        $quiz->load('questions.options');
+        return view('quiz.answer', ['quiz' => $quiz]);
+    }
+
+    public function submit(Request $request, Quiz $quiz){
+
+        Log::info('Submit method was called',$request->all());
+    
+        $score = 0;
+        $userAnswers = $request->except('_token');
+    
+        // Check if $userAnswers is not null before using it in foreach
+        if ($userAnswers) {
+            // loop through the submitted answers and check them
+            foreach($userAnswers as $question_id => $answer_id){
+                $is_correct = Option::where([
+                    'question_id' => str_replace('question', '', $question_id),
+                    'id' => $answer_id,
+                    'is_correct' => true
+                ])->exists();
+    
+                if($is_correct){
+                    $score++;
+                }
+            }
         }
-        return redirect()->route('quizzes.results', ['quiz' => $quiz]);
+    
+        return redirect()->route('quiz.result', ['quiz' => $quiz, 'score' => $score]);
+    }
+    
+    
+
+    public function result(Quiz $quiz, $score){
+        return view('quiz.result', ['quiz' => $quiz, 'score' => $score]);
     }
 }
