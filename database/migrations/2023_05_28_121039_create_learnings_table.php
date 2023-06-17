@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('learnings', function (Blueprint $table) {
-            $table->id();
+            $table->id('learningID');
+            $table->string('slug');
+            $table->string('title');
+            $table->string('description');
+            $table->string('image_path');
             $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
