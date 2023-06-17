@@ -45,6 +45,12 @@ Route::resource('quiz', QuizController::class)
 
 Route::get('/learning/create', [LearningController::class, 'create'])->name('learning.create');
 
+Route::get('/learning/{title}', [LearningController::class, 'show'])->name('learning.show');
+
+Route::get('/learning/{title}/edit', [LearningController::class, 'edit'])->name('learning.edit');
+
+
+
 
 
 require __DIR__ . '/auth.php';

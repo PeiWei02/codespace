@@ -9,6 +9,11 @@ use Illuminate\View\View;
 
 class LearningController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except' =>-['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -57,32 +62,52 @@ class LearningController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Learning $learning)
+    public function show(Learning $title)
     {
-        //
+        return view('learning.show')
+            ->with('post', Learning::where('title', $title)->first());
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Learning $learning)
+    public function edit(Learning $title)
     {
-        //
+        return view('learning.edit')
+            ->with('post', Learning::where('title', $title)->first());
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Learning $learning)
+    public function update(Request $request, Learning $title)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+        
+        Learning::where('title', $title)
+        ->update([
+            'title'=> $request->input('title'),
+            'description'=> $request->input('description'),
+            'user_id'=> auth()->user()->id
+        ]);
+
+        return redirect('/learning')
+            ->with('message','Your post has been updated successfully');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Learning $learning)
+    public function destroy(Learning $title)
     {
-        //
+        $post = Learning::where('title', $title);
+        $post->delete();
+
+        return redirect('/learning')
+            ->with('message','Successfully deleted!');
     }
 }

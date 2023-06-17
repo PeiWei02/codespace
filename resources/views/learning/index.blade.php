@@ -46,9 +46,36 @@
                                 {{$post->description }}
                             </p>
 
-                            <a href="/learning/{{ $post->slug }}" class="uppercase bg-blue-500 text-gray-100 text-lgfont-extrabold py-4 px-8 rounded-3xl">
+                            <a href="/learning/{{ $post->title }}" class="uppercase bg-blue-500 text-gray-100 text-lgfont-extrabold py-4 px-8 rounded-3xl">
                                 More Info
                             </a>
+
+
+                            @if (isset(Auth::user()->id) && Auth::user()->id == $post->user_id)
+                                <span class="float-right">
+                                    <a 
+                                        href="/learning/{{ $post->title}}/edit"
+                                        class="text-gray-700 italic hover:text-gray-900
+                                        pb-1 border-b-2">
+                                        Edit
+                                    </a>
+                                </span>
+
+                                <span class="float-right">
+                                    <form 
+                                        action="/learning/{{ $post->title }}"
+                                        method="POST"
+                                        @csrf
+                                        @method('delete')
+
+                                        <button
+                                            class="text-red-500 pr-3"
+                                            type="submit">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </span>
+                            @endif
                         </div>
                     </div>
                 @endforeach
