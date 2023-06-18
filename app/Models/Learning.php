@@ -19,8 +19,4 @@ class Learning extends Model
 
     }
 
-    // public funciton sluggable(): array
-    // {
-
-    // }
 }

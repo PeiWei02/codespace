@@ -12,7 +12,7 @@ class LearningController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except' =>-['index','show']]);
+        $this->middleware('auth', ['except' =>['index','show']]);
     }
     /**
      * Display a listing of the resource.
@@ -62,36 +62,35 @@ class LearningController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Learning $title)
+    public function show(Learning $learning)
     {
-        return view('learning.show')
-            ->with('post', Learning::where('title', $title)->first());
+
+        // dd($learning);
+        
+        return view('learning.show', ['learning' => $learning]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Learning $title)
+    public function edit(Learning $learning)
     {
-        return view('learning.edit')
-            ->with('post', Learning::where('title', $title)->first());
+        return view('learning.edit', ['learning'=> $learning]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Learning $title)
+    public function update(Request $request, Learning $learning)
     {
         $request->validate([
             'title' => 'required',
             'description' => 'required'
         ]);
         
-        Learning::where('title', $title)
-        ->update([
+        $learning->update([
             'title'=> $request->input('title'),
             'description'=> $request->input('description'),
-            'user_id'=> auth()->user()->id
         ]);
 
         return redirect('/learning')
@@ -102,9 +101,9 @@ class LearningController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Learning $title)
+    public function destroy(Learning $learning)
     {
-        $post = Learning::where('title', $title);
+        $post = Learning::where('learningID', $learning->learningID);
         $post->delete();
 
         return redirect('/learning')

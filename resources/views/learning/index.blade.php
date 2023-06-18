@@ -31,7 +31,7 @@
                 @foreach ($posts as $post)
                     <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200">
                         <div>
-                            <!-- img src -->
+                            <img src="{{ asset('images/' . $post->image_path) }}" alt="" />
                         </div>
                         <div>
                             <h2 class="text-gray-700 font-bold tex-5xl pb-4">
@@ -46,7 +46,7 @@
                                 {{$post->description }}
                             </p>
 
-                            <a href="/learning/{{ $post->title }}" class="uppercase bg-blue-500 text-gray-100 text-lgfont-extrabold py-4 px-8 rounded-3xl">
+                            <a href="/learning/{{ $post->learningID }}" class="uppercase bg-blue-500 text-gray-100 text-lgfont-extrabold py-4 px-8 rounded-3xl">
                                 More Info
                             </a>
 
@@ -54,7 +54,7 @@
                             @if (isset(Auth::user()->id) && Auth::user()->id == $post->user_id)
                                 <span class="float-right">
                                     <a 
-                                        href="/learning/{{ $post->title}}/edit"
+                                        href="/learning/{{ $post->learningID}}/edit"
                                         class="text-gray-700 italic hover:text-gray-900
                                         pb-1 border-b-2">
                                         Edit
@@ -63,8 +63,8 @@
 
                                 <span class="float-right">
                                     <form 
-                                        action="/learning/{{ $post->title }}"
-                                        method="POST"
+                                        action="{{ route('learning.destroy', ['learning' => $post->learningID]) }}"
+                                        method="POST">
                                         @csrf
                                         @method('delete')
 
