@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(user_answer::class);
     }
+
+    public function learning()
+    {
+        return $this->hasMany(learning::class);
+    }
 }
