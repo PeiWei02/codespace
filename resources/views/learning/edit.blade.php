@@ -9,6 +9,19 @@
             </div>
         </div>
 
+        <div class="w-4/5 m-auto py-10">
+            <button onclick="goBack()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                Go Back
+            </button>
+        </div>
+    
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+        <div>
+
         @if ($errors->any())
             <div class="w-4/5 m-auto">
                 <ul>

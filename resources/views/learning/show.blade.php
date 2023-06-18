@@ -24,16 +24,33 @@
 
 
 <x-app-layout>
+    <div class="w-4/5 m-auto py-10">
+        <button onclick="goBack()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+            Go Back
+        </button>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
     <div>
 
         <div class="w-4/5 m-auto text-left">
             <div class="py-15">
                 <h1 class="text-6xl">
-                    {{ $learning->learningID }}
+                    {{ $learning->title }}
 
                 </h1>
             </div>
         </div>
+
+        <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200">
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <img src="{{ asset('images/' . $learning->image_path) }}" alt="" />
+            </div>
+            <div>
 
         <div class="w-4/5 m-auto pt-20">
             <span class="text-gray-500">
