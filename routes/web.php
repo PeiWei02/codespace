@@ -88,6 +88,10 @@ Route::get('/quiz/{quiz}/result/{score}', [QuizController::class, 'result'])
     ->name('quiz.result')
     ->middleware(['auth', 'verified']);
 
+Route::delete('/quiz/{quiz}', [QuizController::class, 'destroy'])
+    ->name('quiz.destroy')
+    ->middleware(['auth', 'verified']);
+
 Route::get('/learning/create', [LearningController::class, 'create'])->name('learning.create');
 
 Route::get('/learning/{learning}', [LearningController::class, 'show'])->name('learning.show');

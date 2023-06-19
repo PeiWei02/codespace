@@ -76,7 +76,9 @@ class QuizController extends Controller
      */
     public function destroy(Quiz $quiz)
     {
-        //
+        $quiz->delete();
+        session()->flash('success', 'Quiz deleted successfully');
+        return redirect()->route('quiz.index');
     }
 
     public function createQuestion(Quiz $quiz)
