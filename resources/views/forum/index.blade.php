@@ -3,7 +3,11 @@
         <main class="container py-4">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="{{ route('forum.create') }}" style="width: 100%; color:#fff" class = "btn btn-info my-2">Add Discussion</a>
+                    <!-- <a href="{{ route('forum.create') }}" style="width: 100%; color:#fff" class = "btn btn-info my-2">Add Discussion</a> -->
+
+                    <a href="{{ route('forum.create') }}" class="no-underline inline-block text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2">
+                        Create Discussion
+                    </a>
                     <div class="card">
                         <div class="card-header">
                             Channels
@@ -30,7 +34,9 @@
                                         <strong class="ml-2">{{ $forum->author->name}}</strong>
                                     </div>
                                     <div>
-                                        <a href="{{ route('forum.show', $forum->slug) }}" class="btn btn-success btn-sm">View</a>
+                                        <a href="{{ route('forum.show', $forum->slug) }}" class="no-underline inline-block text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2 text-center">
+                                            View
+                                        </a>
                                     </div>
                                 </div>
                             </div>

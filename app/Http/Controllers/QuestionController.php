@@ -80,8 +80,9 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Question $question)
+    public function destroy(Quiz $quiz, Question $question)
     {
-        //
+        $question->delete();
+        return redirect()->route('quiz.question.show');
     }
 }
