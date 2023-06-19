@@ -11,7 +11,7 @@
                 @if($percentage < 50)
                     <div>
                         <img src="{{ asset('img/meme_leavemealone.jpg')}}" alt="Low Score" class="mx-auto w-96">
-                        <audio id="audioPlayer" src="{{ asset('audio/bing-chi.mp3') }}" autoplay></audio>
+                        <audio id="audioPlayer" src="{{ asset('audio/sad_violin.mp3') }}" autoplay></audio>
 
                     </div>
                 @else
