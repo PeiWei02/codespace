@@ -11,16 +11,25 @@
                 <h1 class="text-3xl font-bold mb-4">Final Result: {{ $percentage }}% out of 100%</h1>
 
 
-                @if($percentage < 50) 
-                <div>
-                    <img src="{{ asset('img/meme_leavemealone.jpg')}}" alt="Low Score" class="mx-auto w-96">
+                @if($percentage < 50) <div class="flex justify-center items-center">
+                    <!-- <img src="{{ asset('img/meme_leavemealone.jpg')}}" alt="Low Score" class="mx-auto w-96"> -->
                     <audio id="audioPlayer" src="{{ asset('audio/sad_violin.mp3') }}" autoplay></audio>
+                    <div class="tenor-gif-embed" data-postid="26494931" data-share-method="host" data-aspect-ratio="0.984375" data-width="30%">
+                        <a href="https://tenor.com/view/cringe-gif-26494931">Cringe GIF</a>from
+                        <a href="https://tenor.com/search/cringe-gifs">Cringe GIFs</a>
+                    </div>
+                    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
-                 </div>
+            </div>
             @else
-            <div>
-                <img src="{{ asset('img/meme_success.jpg') }}" alt="High Score" class="mx-auto">
+            <div class="flex justify-center items-center">
+                <img src="{{ asset('img/meme_success.jpg') }}" alt="High Score" class="">
                 <audio id="audioPlayer" src="{{ asset('audio/happy.mp3') }}" autoplay></audio>
+                <div class="tenor-gif-embed" data-postid="23730276" data-share-method="host" data-aspect-ratio="1" data-width="30%">
+                    <a href="https://tenor.com/view/fast-cat-cat-excited-jumping-gif-23730276">Fast Cat Cat Excited Sticker</a>from
+                    <a href="https://tenor.com/search/fast+cat-stickers">Fast Cat Stickers</a>
+                </div>
+                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
             </div>
             @endif
