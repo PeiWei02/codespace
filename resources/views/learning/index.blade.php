@@ -1,23 +1,29 @@
 <x-app-layout>
-    <div>
+    <x-slot name="header">
+        <div class="flex justify-between">
 
-        <div class="py-15 w-4/5 m-auto flex items-center justify-between" style="padding-top: 2rem; padding-left: 1rem;">
-            <div class="py-15 border-b border-gray-200 text-left">
-                <h1 class=" text-5xl">
-                    Learning Posts
-                </h1>
+            <div class="font-semibold text-xl text-gray-800 leading-tight inline-block mt-5">
+                    <h1>
+                        Learning Posts
+                    </h1>
             </div>
+    
+            @if (Auth::check())
+                <div class=" pt-15 w-4/5 m-auto flex justify-end">
+                    <a
+                        href="/learning/create"
+                        class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        Create Post
+                    </a>
+                </div>
+            @endif
+
         </div>
 
-        @if (Auth::check())
-            <div class=" pt-15 w-4/5 m-auto flex justify-end">
-                <a
-                    href="/learning/create"
-                    class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    Create Post
-                </a>
-            </div>
-        @endif
+    </x-slot>
+    <div>
+
+        
 
             @if (session()->has('message'))         
                 <div class="w-4/5 m-auto mt-10 pl-2">
