@@ -5,6 +5,7 @@ use App\Http\Controllers\LearningController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\RepliesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,13 +38,18 @@ Route::resource('learning', LearningController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('forum', ForumController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'create', 'show'])
     ->middleware(['auth', 'verified']);
+
+Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
 
 Route::resource('quiz', QuizController::class)
     ->only(['index', 'store', 'create', 'show'])
     ->middleware(['auth', 'verified']);
 
+Route::resource('forums/{forum}/replies',RepliesController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
 
 // Route::get('quiz/create', [QuizController::class, 'create'])
 //     ->name('quiz.create')
