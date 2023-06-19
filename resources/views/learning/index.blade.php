@@ -10,18 +10,18 @@
         </div>
 
         @if (Auth::check())
-            <div class="pt-15 w-4/5 m-auto flex justify-end">
+            <div class=" pt-15 w-4/5 m-auto flex justify-end">
                 <a
                     href="/learning/create"
-                    class="bg-blue-500 uppercase text-gray-100 text-xs font-extrabold py-3 px-5 rounded-3xl">
+                    class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                     Create Post
                 </a>
             </div>
         @endif
 
-            @if (session()->has('message'))
+            @if (session()->has('message'))         
                 <div class="w-4/5 m-auto mt-10 pl-2">
-                    <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-2xl py-4">
+                    <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-2xl py-4 pl-3">
                         {{session()->get('message')}}
                     </p>"
                 </div>
@@ -35,8 +35,8 @@
                 
 
                 @foreach ($posts as $post)
-                    <div class="pl-3 pb-4 sm:grid grid-cols-2 gap-20 w-4/5 mx-auto my-5 py-15 border-b border-gray-200">
-                        <div style="width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 2px solid #ccc; border-radius: 10px;">
+                    <div class="pl-8 pb-4 sm:grid grid-cols-2 gap-20 w-4/5 mx-auto my-5 py-15 border-b border-gray-200 " style="outline: none;">
+                        <div style=" position:relative; width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 2px solid #ccc; border-radius: 10px; margin-left: 12rem;">
                             <img src="{{ asset('images/' . $post->image_path) }}" alt="" style="max-width: 100%; max-height: 100%;" />
                         </div>
                         <div style="position: relative;">
@@ -54,7 +54,7 @@
 
                             <div style="position: absolute; bottom: 1.2rem; left: 0;">
                                 <a href="/learning/{{ $post->learningID }}" 
-                                    class="uppercase bg-blue-500 text-gray-100 text-lgfont-extrabold py-3.5 px-6 rounded-3xl">
+                                    class=" text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                     More Info
                                 </a>
                             </div>

@@ -10,7 +10,8 @@
         </div>
 
         <div class="w-4/5 m-auto py-10">
-            <button onclick="goBack()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+            <button onclick="goBack()" 
+            class="text-white bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                 Go Back
             </button>
         </div>
@@ -32,7 +33,7 @@
                 </ul>
         @endif
 
-        <div class="w-4/5 m-auto pt-20">
+        <div class="w-4/5 m-auto">
             <form
                 action="/learning/{{ $learning->learningID }}"
                 method="POST"
@@ -53,8 +54,8 @@
 
                     <button \
                         type="submit"
-                        class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-                        Submit Post
+                        class="my-3 text-white bg-gradient-to-r from-teal-500 via-teal-600 to-teal-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        Update Post
 
                     </button>
             </form>
